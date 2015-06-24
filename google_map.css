@@ -1,0 +1,46 @@
+  #googleMap {
+    margin-right: 50px;
+    height: 350px;
+  }
+  #select {
+    margin-left: 10px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+  #myOption{
+    margin-left: 5px;
+  }
+  #infoPanel {
+    margin-left: 10px;
+    margin-bottom: 15px;
+  }
+  #add{
+    margin-left: 10px;
+    margin-bottom: 15px;
+  }
+  #updated_address {
+    margin-left: 10px;
+    margin-bottom: 15px;
+  }
+  .lat{
+    margin-left: 5px;
+  }
+  .lon{
+    margin-left: 30px;
+    margin-bottom: 15px;
+  }
+  #map_canvas{
+    margin-left: 5px;
+  }
+  #val{
+    margin-left: 25px;
+  }
+  #val2{
+    margin-left: 25px;
+  }
+  .display{
+    display: inline;
+  }
+  .container{
+    margin-top: 15px;
+  }

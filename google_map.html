@@ -3,6 +3,8 @@
 
     <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
 
+    <link href="../GMap/google_map.css" rel="stylesheet">
+
     <script src="http://maps.googleapis.com/maps/api/js?sensor=false&libraries=places"></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -13,255 +15,66 @@
 
     <style type="text/css"></style>
 
+    <script src="../GMap/google_map.js"></script>
+
 		<!-- // <script src="http://maps.googleapis.com/maps/api/js"></script> -->
     
-		<script type="text/javascript">
+		<script type="text/javascript"></script>
 
-        var map, places;
-        var markers = [];
-        var autocomplete;
-        var countryRestrict = { 'country': 'in' };
-        // var MARKER_PATH = 'https://maps.gstatic.com/intl/en_us/mapfiles/marker_green';
-        // var hostnameRegexp = new RegExp('^https?://.+?/');
-        var countries = {
-        'au': {
-          center: new google.maps.LatLng(-25.3, 133.8),
-          zoom: 6
-        },
-        'br': {
-          center: new google.maps.LatLng(-14.2, -51.9),
-          zoom: 3
-        },
-        'ca': {
-          center: new google.maps.LatLng(62, -110.0),
-          zoom: 3
-        },
-        'fr': {
-          center: new google.maps.LatLng(46.2, 2.2),
-          zoom: 5
-        },
-        'de': {
-          center: new google.maps.LatLng(51.2, 10.4),
-          zoom: 5
-        },
-        'mx': {
-          center: new google.maps.LatLng(23.6, -102.5),
-          zoom: 4
-        },
-        'nz': {
-          center: new google.maps.LatLng(-40.9, 174.9),
-          zoom: 5
-        },
-        'it': {
-            center: new google.maps.LatLng(41.9, 12.6),
-            zoom: 5
-        },
-        'za': {
-          center: new google.maps.LatLng(-30.6, 22.9),
-          zoom: 5
-        },
-        'es': {
-          center: new google.maps.LatLng(40.5, -3.7),
-          zoom: 5
-        },
-        'pt': {
-            center: new google.maps.LatLng(39.4, -8.2),
-            zoom: 6
-        },
-        'us': {
-          center: new google.maps.LatLng(37.1, -95.7),
-          zoom: 3
-        },
-        'uk': {
-          center: new google.maps.LatLng(54.8, -4.6),
-          zoom: 5
-        },
-        'in': {
-          center: new google.maps.LatLng(21, 78),
-          zoom: 6
+    <style>
+        /*#googleMap {
+          margin-right: 50px;
+          height: 350px;
         }
-      };
-      
-      function initialize() {
-        var myConditions = {
-          zoom: countries['in'].zoom,
-          center: countries['in'].center,
-          mapTypeControl: false,
-          panControl: false,
-          zoomControl: false,
-          streetViewControl: false
-        };
-        map = new google.maps.Map(document.getElementById('googleMap'), myConditions);
-
-        autocomplete = new google.maps.places.Autocomplete((document.getElementById('map_canvas')),
-        {
-          types: ['(cities)'],
-          componentRestrictions: countryRestrict
-        });
-        places = new google.maps.places.PlacesService(map);
-        google.maps.event.addListener(autocomplete, 'place_changed', onPlaceChanged);
-        
-        google.maps.event.addDomListener(document.getElementById('myOption'), 'change', setAutocompleteCountry);
-      }
-
-      function onPlaceChanged() {
-        var place = autocomplete.getPlace();
-        if (place.geometry) {
-          // map.panTo(place.geometry.location);
-          var latitude = place.geometry.location.A;
-          var longitude = place.geometry.location.F;
-          // map.setZoom(15);
-          search();
-          var MyCenter = new google.maps.LatLng(latitude,longitude);
-          var mapProp = {
-                  center:MyCenter,
-                  zoom:12,
-                  mapTypeId:google.maps.MapTypeId.ROADMAP
-                };
-
-          var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
-          var marker=new google.maps.Marker({
-                position:MyCenter,
-              });
-              marker.setMap(map);
-
-        } else {
-        document.getElementById('autocomplete').placeholder = 'Enter a city';
+        #select {
+          margin-left: 10px;
+          margin-top: 15px;
+          margin-bottom: 15px;
         }
-      }
-
-      function search() {
-        var search = {
-          bounds: map.getBounds(),
-          types: ['lodging']
-        };
-        console.log(search)
-      }
-
-      function clearMarkers() {
-        for (var i = 0; i < markers.length; i++) {
-          if (markers[i]) {
-            markers[i].setMap(null);
-          }
+        #myOption{
+          margin-left: 5px;
         }
-        markers = [];
-      }
-
-      function setAutocompleteCountry() {
-        console.log("test")
-        var country = document.getElementById('myOption').value;
-        console.log(country)
-        autocomplete.setComponentRestrictions({ 'country': country });
-        map.setCenter(countries[country].center);
-        map.setZoom(countries[country].zoom);
-        clearMarkers();
-      }
-
-      function dropMarker(i) {
-        return function() {
-          markers[i].setMap(map);
-        };
-      }
-          
-
-
-          
-          // $(document).ready(function(){
-          //   google.maps.event.addDomListener(window, 'load', function () {
-
-          //     var places = new google.maps.places.Autocomplete(document.getElementById('map_canvas'));
-          //     google.maps.event.addListener(places, 'place_changed', function () {
-          //       var place = places.getPlace();
-          //       var address1 = place.formatted_address;
-          //       var latitude = place.geometry.location.A;
-          //       var longitude = place.geometry.location.F;
-          //       var mesg = "Address: " + address1;
-          //       var MyCenter = new google.maps.LatLng(latitude,longitude);
-
-          //       var mapProp = {
-          //         center:MyCenter,
-          //         zoom:12,
-          //         mapTypeId:google.maps.MapTypeId.ROADMAP
-          //       };
-
-          //     var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
-
-          //     var marker=new google.maps.Marker({
-          //       position:MyCenter,
-          //     });
-          //     marker.setMap(map);
-
-
-          //     // google.maps.event.addListener(marker,'click',function() {
-          //     //   map.setZoom(9);
-          //     //   map.setCenter(marker.getPosition());
-          //     // });
-          //     // var options = {
-          //     //   types: ['(countries)'],
-          //     //   componentRestrictions: {country: "us"}
-          //     // };
-          //     // var input = document.getElementById('map_canvas');
-          //     // var autocomplete = new google.maps.places.Autocomplete(input, options);
-
-
-              
-          //     // var city = document.getElementById("myOption");
-          //     // var country = city.options[city.selectedIndex].text;
-          //     // console.log(country)
-          //     // autocomplete.setComponentRestrictions({ 'country': country });
-          //     // map.setCenter(cities[country].center);
-          //     // map.setZoom(cities[country].zoom);
-          //     // clearResults();
-          //     // clearMarkers();
-
-          //     });
-          //   });
-          // })
-            
-
-
-
-        	function codeAddress() {
-        		var add = document.getElementById("myOption");
-        		var address = add.options[add.selectedIndex].text;
-        		var geocoder = new google.maps.Geocoder();
-
-        		var location='';
-        		geocoder.geocode( { 'address': address}, function(results, status) {
-          			location = results[0].geometry.location;
-
-          			var MyCenter = new google.maps.LatLng(location.lat(),location.lng());
-
-        			var mapProp = {
-    					center:MyCenter,
-    					zoom:7,
-    					mapTypeId:google.maps.MapTypeId.ROADMAP
-					    };
-
-        			var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
-
-        			var marker=new google.maps.Marker({
-  						  position:MyCenter,
-  					  });
-					    marker.setMap(map);
-
-					// Zoom to 9 when clicking on marker
-					  google.maps.event.addListener(marker,'click',function() {
-  					  map.setZoom(9);
-  					  map.setCenter(marker.getPosition());
-  					});
-
-        		});
-        	}
-
-
-        	// google.maps.event.addDomListener(window, 'load', codeAddress);
-          google.maps.event.addDomListener(window, 'load', initialize);
-
-    	</script>
+        #infoPanel {
+          margin-left: 10px;
+          margin-bottom: 15px;
+        }
+        #add{
+          margin-left: 10px;
+          margin-bottom: 15px;
+        }
+        #updated_address {
+          margin-left: 10px;
+          margin-bottom: 15px;
+        }
+        .lat{
+          margin-left: 5px;
+        }
+        .lon{
+          margin-left: 30px;
+          margin-bottom: 15px;
+        }
+        #map_canvas{
+          margin-left: 5px;
+        }
+        #val{
+          margin-left: 25px;
+        }
+        #val2{
+          margin-left: 25px;
+        }
+        .display{
+          display: inline;
+        }
+        .container{
+          margin-top: 15px;
+        }*/
+    </style>
+    
 	</head>
 
   <body>
+    <div id="select">
+    <b>Country </b>
       <select class="selectpicker" id="myOption" onchange="codeAddress()" >
           <!-- <option value="all">All</option> -->
           <option value="au">Australia</option>
@@ -279,9 +92,17 @@
           <option value="us">U.S.A.</option>
           <option value="uk">United Kingdom</option>
       </select>
-    Enter Address: 
-    <input id="map_canvas" type="text" name="add" style="height:30px; width:300px;">
-    <!-- <button class="search-location" id="search" type="button" onclick="initialize()" style="height:30px; width:150px;">SEARCH</button> -->
+    <b id="val">Enter Address </b>
+    <input id="map_canvas" type="text" name="add" style="height:30px; width:280px;">
+  </div>
+    <div id="infoPanel">
+      <b id="val1">Latitude </b><input class="lat" type="text" id="latitude" style="height:30px; width:220px;" placeholder="Latitude"/>
+      <b id="val2">Longitude  </b><input class="lon" type="text" id="longitude" style="height:30px; width:220px;" placeholder="Longitude"/>
+    </div>
+    <div>
+        <div id="add" class="display"><b>Closest Matching Address : </b></div>
+        <div id="updated_address" class="display"></div>
+    </div>
     <div class="container">    
     <div class="row">
     <div class="col-sm-4" id="googleMap" style="height:450px;">
